@@ -1,0 +1,30 @@
+.data
+	tex_1: .asciiz "Ingrese un número: "
+	tex_2: .asciiz "El número que ingresó es par"
+	tex_3: .asciiz "El número que ingresó es impar"
+.text
+main: 
+	addi $t0, $0, 2
+	la $a0, tex_1
+	li $v0, 4
+	syscall
+
+	li $2,5
+	syscall
+
+	div $2, $t0
+	mfhi $t1
+	
+	beq $t1, $0, print_0
+		la $a0, tex_3
+		li $2, 4
+		syscall
+	j fin
+	print_0: la $a0, tex_2
+
+	li $2, 4
+	syscall
+	j fin
+	fin: li $2, 10
+	syscall
+j $ra
