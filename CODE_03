@@ -1,0 +1,36 @@
+.data
+    tex_1: .asciiz "\n Ingrese un número: "
+    tex_2: .asciiz "\n El número es primo"
+    tex_3: .asciiz "\n El número no es primo"
+
+.text
+main:
+	la $a0 tex_1
+	syscall
+	li $v0 5
+	syscall
+	move $t0 $v0
+	li $t1 2
+	
+loop:   
+	beq $t0 $t1 si_primo
+	div $t0 $t1
+	mfhi $t2
+	beqz $t2 no_primo
+	addi $t1 $t1 1
+	b loop
+
+si_primo:
+	li $v0 4
+	la $a0 tex_2
+	syscall
+	b exit
+	
+no_primo:
+	li $v0 4
+	la $a0 tex_3
+	syscall
+	b exit
+	
+exit:	li $v0 10
+	syscall
